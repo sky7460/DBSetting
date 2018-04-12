@@ -17,7 +17,7 @@ public class SettingMain extends JFrame{
 			public void run() {
 				InitService initService = new InitService();
 				initService.service();
-				ImportService importService = new ImportService();
+				AbstractService importService = new ImportService();
 				importService.service();
 				ExportService exportService = new ExportService();
 				exportService.service();

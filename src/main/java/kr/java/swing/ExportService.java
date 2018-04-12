@@ -7,19 +7,13 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import kr.java.dbcon.DBCon;
 
-public class ExportService{
-	private DataBaseDao dao;
-	
-	public ExportService() {
-		dao= DataBaseDao.getInstance();
-	}
+public class ExportService extends AbstractService{
 
+	@Override
 	public void service() {
 		DataBaseDao.getInstance().execSQL("USE " + DBCon.getInstance().getDbName());
 		checkBackupDir();
@@ -29,6 +23,12 @@ public class ExportService{
 		}		
 	}
 
+	@Override
+	public String getFilePath(String tableName) {
+		String importPath = System.getProperty("user.dir")+ "\\BackupFiles\\";
+		return String.format("%s%s.txt", importPath, tableName).replace("\\", "/");
+	}
+	
 	private void checkBackupDir() {
 		File backupDir=new File(System.getProperty("user.dir")+ "\\BackupFiles\\");
 		
@@ -68,22 +68,4 @@ public class ExportService{
 		} 	
 	}
 
-	private List<String> getTables() {
-		List<String> tables = new ArrayList<>();
-		try (ResultSet rs = dao.execQueryRes("show tables")){
-			while (rs.next()) {
-				tables.add(rs.getString(1));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			dao.close();
-		}
-		return tables;
-	}
-
-	private String getFilePath(String tableName) {
-		String importPath = System.getProperty("user.dir")+ "\\BackupFiles\\";
-		return String.format("%s%s.txt", importPath, tableName).replace("\\", "/");
-	}
 }
