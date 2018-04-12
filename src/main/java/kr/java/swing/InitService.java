@@ -8,13 +8,9 @@ import java.io.InputStreamReader;
 
 import org.apache.logging.log4j.LogManager;
 
-public class InitService{
-	private DataBaseDao dao;
-	
-	public InitService() {
-		dao = DataBaseDao.getInstance();
-	}
+public class InitService extends AbstractService{
 
+	@Override
 	public void service() {
 		createTable("create_sql.txt");	// 데이터베이스 생성 및 테이블 생성 유저 생성
 		createTriggerProcedure("create_procedure.txt");	// 프로시저 생성
@@ -61,6 +57,11 @@ public class InitService{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public String getFilePath(String tableName) {
+		throw new UnsupportedOperationException(); 
 	}
 	
 }

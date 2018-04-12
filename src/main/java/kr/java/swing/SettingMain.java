@@ -15,11 +15,11 @@ public class SettingMain extends JFrame{
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				InitService initService = new InitService();
+				AbstractService initService = new InitService();
 				initService.service();
 				AbstractService importService = new ImportService();
 				importService.service();
-				ExportService exportService = new ExportService();
+				AbstractService exportService = new ExportService();
 				exportService.service();
 				/*try {
 					SettingMain frame = new SettingMain();
