@@ -40,7 +40,7 @@ public class InitService extends AbstractService{
 
 	private void createTriggerProcedure(String file) {
 		try (InputStream is = ClassLoader.getSystemResourceAsStream("sql/"+file);
-				BufferedReader br = new BufferedReader(new InputStreamReader(is));) {
+				BufferedReader br = new BufferedReader(new InputStreamReader(is,"UTF-8"));) {
 			StringBuilder statement = new StringBuilder();
 			for (String line; (line = br.readLine()) != null;) {
 				if (!line.isEmpty() && !line.startsWith("--")) {

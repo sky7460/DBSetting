@@ -1,5 +1,6 @@
 -- db 존재하면 삭제
 drop database if exists coffee;
+drop user 'user_coffee'@'%' ;
 
 -- db 생성
 create database coffee;
