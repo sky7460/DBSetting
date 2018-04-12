@@ -1,4 +1,4 @@
-package kr.java.swing;
+package kr.java.swing.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
