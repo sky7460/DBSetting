@@ -3,17 +3,17 @@ begin
    set @score:=0, @rank:=0;
    
    select 
-         greatest( @rank := if(@score = if(isSalePrice, 판매액, 마진액), @rank, @rank + 1),  
-         least(0, @score := if(isSalePrice,판매액,마진액)) ) as rank,
-         code, name, 가격, 판매수량, 공급가액, 부가세액, 판매액, 마진율, 마진액
+         greatest( @rank := if(@score = if(isSalePrice, saleprice, marginprice), @rank, @rank + 1),  
+         least(0, @score := if(isSalePrice,saleprice,marginprice)) ) as rank,
+         code, name, price, salecnt, supplyprice, addtax, saleprice, marginrate, marginprice
    from 
-      (select no, s.code code, name, price 가격, salecnt 판매수량,  
-         @saleprice:=price*salecnt 판매액,
-         @addtax := ceil(@saleprice/11) 부가세액,
-         @supprice := @saleprice - @addtax 공급가액,
-         marginrate 마진율,
-         @marPrice := round(@supprice * (marginrate/100)) 마진액
+      (select no, s.code code, name, price , salecnt ,  
+         @saleprice:=price*salecnt saleprice,
+         @addtax := ceil(@saleprice/11) addtax,
+         @supprice := @saleprice - @addtax supplyprice,
+         marginrate ,
+         @marPrice := round(@supprice * (marginrate/100)) marginprice
       from  sale s join product p on s.code = p.code ) t
-   order by if(isSalePrice,판매액,마진액) desc;
+   order by if(isSalePrice,saleprice,marginprice) desc;
     
 END;

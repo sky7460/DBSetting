@@ -18,7 +18,7 @@ CREATE TABLE product (
 
 -- 판매정보
 CREATE TABLE sale (
-   no   INT(11) auto_increment,
+   no   	  INT(11) NOT NULL,
    code       CHAR(4) NOT NULL, 
    saleCnt    INT(11) NOT NULL,
    marginRate INT(11) NOT NULL,
@@ -30,4 +30,7 @@ CREATE TABLE sale (
 -- coffee_project데이터베이스에 select, insert, update, delete, trigger 권한을 계정생성과 부여
 grant select, insert, update, delete, trigger on coffee.* to 'user_coffee' identified by 'rootroot';
 -- 해당 계정에 procedure 실행 권한부여
-GRANT Select ON mysql.proc TO 'user_coffee'@'%' ; 
+GRANT Execute ON coffee.* TO 'user_coffee'@'%' ;
+-- mysql-유저에게-jdbc-로-procedure-권한-추가-해-주기 
+GRANT SELECT, INSERT, UPDATE, DELETE ON `mysql`.`proc` TO 'user_coffee'@'%';
+
