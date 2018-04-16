@@ -29,8 +29,8 @@ public class InitServiceTest {
 
 
 	@Test
-	public void testDatabaseExists() throws SQLException{
-		log.debug("testDatabaseExists()");
+	public void testDatabaseExist() throws SQLException{
+		log.debug("testDatabaseExist()");
 		String sql = "SELECT EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'coffee') AS flag";// 데이터베이스 존재 확인
 		try(ResultSet rs= dao.execQueryRes(sql)){
 			rs.next();
@@ -54,4 +54,47 @@ public class InitServiceTest {
 		}
 	}
 
+	
+	@Test
+	public void testProcedureExist() throws SQLException {
+		log.debug("testProcedureExist()");
+		String sql = "SELECT EXISTS (select routine_name from information_schema.ROUTINES where ROUTINE_SCHEMA = 'coffee' and "
+				+ "ROUTINE_NAME='proc_saledetail_orderby' and ROUTINE_TYPE='PROCEDURE') as res";
+		try(ResultSet rs= dao.execQueryRes(sql)){
+			rs.next();
+			Assert.assertEquals(1, rs.getInt(1));
+			log.trace(String.format("\tprocedure %s", rs.getInt(1)==1?"exist":"not exist"));
+		}
+	}
+	
+	@Test
+	public void testUserExist() throws SQLException {
+		log.debug("testUserExist()");
+		String sql = "select 1 from mysql.user where user = 'user_coffee'";
+		try(ResultSet rs= dao.execQueryRes(sql)){
+			rs.next();
+			Assert.assertEquals(1, rs.getInt(1));
+			log.trace(String.format("\tuser %s", rs.getInt(1)==1?"exist":"not exist"));
+		}
+	}
+	
+/*	@Test
+	public void testFunctionExist() throws SQLException {
+		String sql = "SELECT EXISTS (select 1 from information_schema.ROUTINES where ROUTINE_SCHEMA = 'erp4' and ROUTINE_NAME='sf_devide' and ROUTINE_TYPE='FUNCTION') as res";
+		try(ResultSet rs= dao.execQueryRes(sql)){
+			rs.next();
+			Assert.assertEquals(1, rs.getInt(1));
+			log.trace(String.format("\tFunction %s", rs.getInt(1)==1?"exist":"not exist"));
+		}
+	}
+	
+		@Test
+	public void testTiggerExist() throws SQLException {
+		String sql = "SELECT EXISTS (select 1 from information_schema.TRIGGERS where TRIGGER_SCHEMA = 'coffee_pjt' and TRIGGER_NAME='tri_sale_after_insert_detail') as res";
+		try(ResultSet rs= dao.execQueryRes(sql)){
+			rs.next();
+			Assert.assertEquals(1, rs.getInt(1));
+			log.trace(String.format("\ttrigger %s", rs.getInt(1)==1?"exist":"not exist"));
+		}
+	}*/
 }
