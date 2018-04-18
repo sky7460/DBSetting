@@ -8,23 +8,54 @@ create database coffee;
 -- db 사용
 use coffee;
 
--- 제품정보
+-- 제품
 CREATE TABLE product (
-   code CHAR(4)  NOT NULL,
-   name VARCHAR(20) not null,
-   price INT(11) NOT NULL,
-   primary key (code)
-);
+	code  CHAR(4)     NOT NULL COMMENT '코드', -- 코드
+	name  VARCHAR(20) NOT NULL COMMENT '제품명', -- 제품명
+	price INT(11)     NOT NULL COMMENT '제품단가' -- 제품단가
+)
+COMMENT '제품';
+
+-- 제품
+ALTER TABLE product
+	ADD CONSTRAINT
+		PRIMARY KEY (
+			code -- 코드
+		);
 
 -- 판매정보
 CREATE TABLE sale (
-   no   	  INT(11) NOT NULL,
-   code       CHAR(4) NOT NULL, 
-   saleCnt    INT(11) NOT NULL,
-   marginRate INT(11) NOT NULL,
-   primary key (no),
-   FOREIGN KEY (code) REFERENCES product (code)
-);
+	no         INT(11) NOT NULL COMMENT '번호', -- 번호
+	code       CHAR(4) NOT NULL COMMENT '제품코드', -- 제품코드
+	saleCnt    INT(11) NOT NULL COMMENT '판매량', -- 판매량
+	marginRate INT(11) NOT NULL COMMENT '마진율' -- 마진율
+)
+COMMENT '판매정보';
+
+-- 판매정보
+ALTER TABLE sale
+	ADD CONSTRAINT
+		PRIMARY KEY (
+			no -- 번호
+		);
+
+ALTER TABLE sale
+	MODIFY COLUMN no INT(11) NOT NULL AUTO_INCREMENT COMMENT '번호';
+
+
+
+-- 판매정보
+ALTER TABLE sale
+	ADD CONSTRAINT sale_ibfk_1 -- sale_ibfk_1
+		FOREIGN KEY (
+			code -- 제품코드
+		)
+		REFERENCES product ( -- 제품
+			code -- 코드
+		),
+	ADD INDEX code (
+		code -- 제품코드
+	);
 
 -- create and grant user
 -- coffee_project데이터베이스에 select, insert, update, delete, trigger 권한을 계정생성과 부여

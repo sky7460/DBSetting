@@ -14,17 +14,21 @@ public class InitService extends AbstractService{
 	public void service() {
 		createTable("create_sql.txt");	// 데이터베이스 생성 및 테이블 생성 유저 생성
 		createTriggerProcedure("create_procedure.txt");	// 프로시저 생성
-/*		createTriggerProcedure("create_trigger.txt");	// 트리거 생성         */
 	}
 
 	private void createTable(String file) {
 		try (InputStream is = ClassLoader.getSystemResourceAsStream("sql/"+file);
-				BufferedReader br = new BufferedReader(new InputStreamReader(is));) {
+				BufferedReader br = new BufferedReader(new InputStreamReader(is,"UTF-8"));) {
 			StringBuilder statement = new StringBuilder();
 			for (String line; (line = br.readLine()) != null;) {
-				if (!line.isEmpty() && !line.startsWith("--")) {
-					statement.append(line.trim());
+				if (line.startsWith("--")) continue;
+				
+				if (line.contains("--")) {
+					statement.append(line.substring(0, line.lastIndexOf("-- ")));
+				}else {
+					statement.append(line);
 				}
+				
 				if (line.endsWith(";")) {
 					dao.execSQL(statement.toString());
 					LogManager.getLogger().debug("createTable() - " + statement.toString());
@@ -42,10 +46,12 @@ public class InitService extends AbstractService{
 		try (InputStream is = ClassLoader.getSystemResourceAsStream("sql/"+file);
 				BufferedReader br = new BufferedReader(new InputStreamReader(is,"UTF-8"));) {
 			StringBuilder statement = new StringBuilder();
+
 			for (String line; (line = br.readLine()) != null;) {
-				if (!line.isEmpty() && !line.startsWith("--")) {
-					statement.append(line);
+				if (!line.startsWith("--")) {
+	            	statement.append(line);
 				}
+				
 				if (line.endsWith("END;")) {
 					dao.execSQL(statement.toString());
 					LogManager.getLogger().debug("createTriggerProcedure() - " + statement.toString());
