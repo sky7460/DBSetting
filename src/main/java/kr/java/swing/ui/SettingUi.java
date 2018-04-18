@@ -1,7 +1,5 @@
 package kr.java.swing.ui;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,15 +36,15 @@ public class SettingUi extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 1, 10, 0));
 		
-		JPanel p1 = new JPanel();
-		p1.setBorder(new TitledBorder(null, "Coffee 관리지 설정", TitledBorder.LEADING, TitledBorder.TOP, new Font("맑은고딕", Font.BOLD, 20), Color.RED));
-		contentPane.add(p1);
-		p1.setLayout(new GridLayout(1, 0, 0, 0));
+		JPanel btnPannel = new JPanel();
+		btnPannel.setBorder(new TitledBorder(null, "Coffee 관리지 설정", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPane.add(btnPannel);
+		btnPannel.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		for(String btnTitle : btnNames) {
 			JButton btn = new JButton(btnTitle);
 			btn.addActionListener(this);
-			p1.add(btn);
+			btnPannel.add(btn);
 		}
 		
 	}

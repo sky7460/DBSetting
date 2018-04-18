@@ -17,3 +17,13 @@ begin
    order by if(isSalePrice,saleprice,marginprice) desc;
     
 END;
+
+
+CREATE PROCEDURE coffee.proc_sale_stat()
+BEGIN
+	select  sum(@saleprice:=price*salecnt) sale_price, 
+		sum(@addtax := ceil(@saleprice/11)) addtax_price, 
+		sum(@supprice := @saleprice - @addtax) supply_price, 
+		sum(@marPrice := round(@supprice * (marginrate/100))) margin_price 
+	from  sale s join product p on s.code = p.code;
+END;

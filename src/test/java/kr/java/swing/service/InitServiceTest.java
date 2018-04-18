@@ -58,12 +58,17 @@ public class InitServiceTest {
 	@Test
 	public void testProcedureExist() throws SQLException {
 		log.debug("testProcedureExist()");
-		String sql = "SELECT EXISTS (select routine_name from information_schema.ROUTINES where ROUTINE_SCHEMA = 'coffee' and "
-				+ "ROUTINE_NAME='proc_saledetail_orderby' and ROUTINE_TYPE='PROCEDURE') as res";
+		
+		String sql = "select count(routine_name) as res " + 
+				"from information_schema.ROUTINES " + 
+				"where ROUTINE_SCHEMA = 'coffee' " + 
+				"	and ROUTINE_NAME in ('proc_saledetail_orderby' , 'proc_sale_stat')" + 
+				"	and ROUTINE_TYPE='PROCEDURE'";
+		
 		try(ResultSet rs= dao.execQueryRes(sql)){
 			rs.next();
-			Assert.assertEquals(1, rs.getInt(1));
-			log.trace(String.format("\tprocedure %s", rs.getInt(1)==1?"exist":"not exist"));
+			Assert.assertEquals(2, rs.getInt(1));
+			log.trace(String.format("\tprocedure %s", rs.getInt(1)==2?"exist":"not exist"));
 		}
 	}
 	
