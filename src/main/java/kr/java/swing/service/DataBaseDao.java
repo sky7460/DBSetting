@@ -20,7 +20,7 @@ public class DataBaseDao {
 		return instance;
 	}
 
-	public void execSQL(String sql) {
+	public void executeQueryUpdate(String sql) {
 		try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
 			pstmt.execute();
 		} catch (SQLException e) {
@@ -29,7 +29,7 @@ public class DataBaseDao {
 		}
 	}
 
-	public ResultSet execQueryRes(String sql) throws SQLException {
+	public ResultSet executeQuery(String sql) throws SQLException {
 		pstmt = connection.prepareStatement(sql);
 		return pstmt.executeQuery();
 	}

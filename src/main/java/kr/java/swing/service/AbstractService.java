@@ -14,7 +14,7 @@ public abstract class AbstractService {
 
 	public List<String> getTables() {
 		List<String> tables = new ArrayList<>();
-		try (ResultSet rs =dao.execQueryRes("show tables")){
+		try (ResultSet rs =dao.executeQuery("show tables")){
 			while (rs.next()) {
 				tables.add(rs.getString(1));
 			}

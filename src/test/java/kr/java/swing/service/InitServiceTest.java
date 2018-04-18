@@ -24,7 +24,7 @@ public class InitServiceTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		dao.execSQL("drop database coffee");
+		dao.executeQueryUpdate("drop database coffee");
 	}
 
 
@@ -32,7 +32,7 @@ public class InitServiceTest {
 	public void testDatabaseExist() throws SQLException{
 		log.debug("testDatabaseExist()");
 		String sql = "SELECT EXISTS (SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'coffee') AS flag";// 데이터베이스 존재 확인
-		try(ResultSet rs= dao.execQueryRes(sql)){
+		try(ResultSet rs= dao.executeQuery(sql)){
 			rs.next();
 			Assert.assertEquals(1, rs.getInt(1));
 			log.trace(String.format("\t%s database %s", "coffee", rs.getInt(1)==1?"exist":"not exist"));
@@ -46,7 +46,7 @@ public class InitServiceTest {
 		String dbName = "coffee";
 		String sql = "SELECT EXISTS (SELECT 1 FROM Information_schema.tables WHERE table_name = '%s' AND table_schema = '%s' ) AS flag";// 데이터베이스내 테이블 확인
 		for(String tblName: tableNames) {
-			try(ResultSet rs= dao.execQueryRes(String.format(sql,tblName, dbName))){
+			try(ResultSet rs= dao.executeQuery(String.format(sql,tblName, dbName))){
 				rs.next();
 				Assert.assertEquals(1, rs.getInt(1));
 				log.trace(String.format("\t%s table %s", tblName, rs.getInt(1)==1?"exist":"not exist"));
@@ -65,7 +65,7 @@ public class InitServiceTest {
 				"	and ROUTINE_NAME in ('proc_saledetail_orderby' , 'proc_sale_stat')" + 
 				"	and ROUTINE_TYPE='PROCEDURE'";
 		
-		try(ResultSet rs= dao.execQueryRes(sql)){
+		try(ResultSet rs= dao.executeQuery(sql)){
 			rs.next();
 			Assert.assertEquals(2, rs.getInt(1));
 			log.trace(String.format("\tprocedure %s", rs.getInt(1)==2?"exist":"not exist"));
@@ -76,7 +76,7 @@ public class InitServiceTest {
 	public void testUserExist() throws SQLException {
 		log.debug("testUserExist()");
 		String sql = "select 1 from mysql.user where user = 'user_coffee'";
-		try(ResultSet rs= dao.execQueryRes(sql)){
+		try(ResultSet rs= dao.executeQuery(sql)){
 			rs.next();
 			Assert.assertEquals(1, rs.getInt(1));
 			log.trace(String.format("\tuser %s", rs.getInt(1)==1?"exist":"not exist"));

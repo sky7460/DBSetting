@@ -12,13 +12,13 @@ public class ImportService extends AbstractService{
 	
 	@Override
 	public void service() {	
-		dao.execSQL("SET FOREIGN_KEY_CHECKS = 0");
-		dao.execSQL("use " + DBCon.getInstance().getDbName());
+		dao.executeQueryUpdate("SET FOREIGN_KEY_CHECKS = 0");
+		dao.executeQueryUpdate("use " + DBCon.getInstance().getDbName());
 		List<String> tables = getTables();
 		for (String tableName : tables) {
-			dao.execSQL(String.format("LOAD DATA LOCAL INFILE '%s' IGNORE INTO TABLE %s character set 'UTF8' fields TERMINATED by ','",getFilePath(tableName), tableName));
+			dao.executeQueryUpdate(String.format("LOAD DATA LOCAL INFILE '%s' IGNORE INTO TABLE %s character set 'UTF8' fields TERMINATED by ','",getFilePath(tableName), tableName));
 		}
-		dao.execSQL("SET FOREIGN_KEY_CHECKS = 1");		
+		dao.executeQueryUpdate("SET FOREIGN_KEY_CHECKS = 1");		
 	}
 
 	@Override

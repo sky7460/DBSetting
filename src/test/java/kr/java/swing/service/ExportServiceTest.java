@@ -31,7 +31,7 @@ public class ExportServiceTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		dao.execSQL("drop database coffee");
+		dao.executeQueryUpdate("drop database coffee");
 	}
 
 

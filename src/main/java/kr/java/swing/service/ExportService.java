@@ -15,7 +15,7 @@ public class ExportService extends AbstractService{
 
 	@Override
 	public void service() {
-		DataBaseDao.getInstance().execSQL("USE " + DBCon.getInstance().getDbName());
+		DataBaseDao.getInstance().executeQueryUpdate("USE " + DBCon.getInstance().getDbName());
 		checkBackupDir();
 		List<String> tables = getTables();
 		for(String tblName : tables) {
@@ -45,7 +45,7 @@ public class ExportService extends AbstractService{
 	
 	private void exportData(String sql, String exportPath){
 		StringBuilder sb = new StringBuilder();
-		try (ResultSet rs = dao.execQueryRes(sql)){
+		try (ResultSet rs = dao.executeQuery(sql)){
 			int colCnt = rs.getMetaData().getColumnCount();// 컬럼의 개수
 			while (rs.next()) {
 				for (int i = 1; i <= colCnt; i++) { 

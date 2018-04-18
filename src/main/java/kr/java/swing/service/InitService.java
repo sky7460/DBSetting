@@ -30,7 +30,7 @@ public class InitService extends AbstractService{
 				}
 				
 				if (line.endsWith(";")) {
-					dao.execSQL(statement.toString());
+					dao.executeQueryUpdate(statement.toString());
 					LogManager.getLogger().debug("createTable() - " + statement.toString());
 					statement.setLength(0);
 				}
@@ -53,7 +53,7 @@ public class InitService extends AbstractService{
 				}
 				
 				if (line.endsWith("END;")) {
-					dao.execSQL(statement.toString());
+					dao.executeQueryUpdate(statement.toString());
 					LogManager.getLogger().debug("createTriggerProcedure() - " + statement.toString());
 					statement.setLength(0);
 				}

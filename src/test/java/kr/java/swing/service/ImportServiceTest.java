@@ -28,7 +28,7 @@ public class ImportServiceTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		dao.execSQL("drop database coffee");
+		dao.executeQueryUpdate("drop database coffee");
 	}
 
 
@@ -41,7 +41,7 @@ public class ImportServiceTest {
 		
 		String sql = "select count(*) cnt from %s.%s";// 데이터베이스 존재 확인
 		for(int i=0; i<tableNames.length; i++) {
-			try(ResultSet rs= dao.execQueryRes(String.format(sql,"coffee", tableNames[i]))){
+			try(ResultSet rs= dao.executeQuery(String.format(sql,"coffee", tableNames[i]))){
 				rs.next();
 				Assert.assertEquals(cnts[i], rs.getInt(1));
 				log.trace("   count(*) - " + rs.getInt(1));
