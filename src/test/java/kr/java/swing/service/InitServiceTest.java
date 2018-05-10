@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class InitServiceTest {
+public class InitServiceTest{
 	private static final Logger log = LogManager.getLogger();
 	private static AbstractService initService;
 	private static DataBaseDao dao;

@@ -19,7 +19,7 @@ import kr.java.swing.service.ImportService;
 import kr.java.swing.service.InitService;
 
 @SuppressWarnings("serial")
-public class SettingUi extends JFrame implements ActionListener{
+public class SettingUi extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private List<AbstractService> services;
 	private List<String> btnNames;

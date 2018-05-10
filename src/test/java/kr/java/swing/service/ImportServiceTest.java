@@ -33,7 +33,7 @@ public class ImportServiceTest {
 
 
 	@Test
-	public void testLoadData() throws SQLException {
+	public void testLoadData() throws SQLException  {
 		log.debug("testCLoadData()");
 		
 		String[] tableNames = {"product", "sale"};
