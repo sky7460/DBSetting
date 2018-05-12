@@ -2,7 +2,7 @@ package kr.java.swing.service;
 
 import java.util.List;
 
-import kr.java.dbcon.DBCon;
+import kr.java.swing.db.DBCon;
 
 public class ImportService extends AbstractService{
 	

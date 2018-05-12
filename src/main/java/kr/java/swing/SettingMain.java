@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import kr.java.dbcon.DBCon;
+import kr.java.swing.db.DBCon;
 import kr.java.swing.ui.SettingUi;
 
 public class SettingMain {

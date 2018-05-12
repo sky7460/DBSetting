@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import kr.java.dbcon.DBCon;
+import kr.java.swing.db.DBCon;
 
 public class DataBaseDao {
 	private static DataBaseDao instance = new DataBaseDao();
