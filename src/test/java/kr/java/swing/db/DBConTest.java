@@ -37,12 +37,12 @@ public class DBConTest {
 		log.trace("\tdbName - " + dbName);
 	}
 	
-	@Test
+/*	@Test
 	public void testDNullDbName() {
 		log.debug("testDNullDbName()");
 		DBCon.getInstance().getConnection("conf_no_dbname.properties");
 		String dbName = DBCon.getInstance().getDbName();
 		Assert.assertNotEquals("coffee", dbName);
 		log.trace("\tdbName - " + dbName);
-	}
+	}*/
 }

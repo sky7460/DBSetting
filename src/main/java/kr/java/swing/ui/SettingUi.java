@@ -37,7 +37,7 @@ public class SettingUi extends JFrame implements ActionListener {
 		contentPane.setLayout(new GridLayout(0, 1, 10, 0));
 		
 		JPanel btnPannel = new JPanel();
-		btnPannel.setBorder(new TitledBorder(null, "Coffee 관리지 설정", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		btnPannel.setBorder(new TitledBorder(null, "CoffeeProject Database 관리자 설정", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(btnPannel);
 		btnPannel.setLayout(new GridLayout(1, 0, 0, 0));
 		
